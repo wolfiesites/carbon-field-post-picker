@@ -1,0 +1,27 @@
+{
+    "name": "wolfiesites/carbon-field-post-picker",
+    "description": "Carbon Fields extension, that adds a post-picker field type.",
+    "keywords": ["wordpress", "carbon-field", "carbon-field-post-picker"],
+    "homepage": "https://wolfiesites.com",
+    "type": "library",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Paweł Witek",
+            "email": "pawel.witek@wolfiesites.com",
+            "homepage": "https://wolfiesites.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "htmlburger/carbon-fields": "^3.3"
+    },
+    "autoload": {
+        "files": [
+            "field.php"
+        ],
+        "psr-4": {
+            "Carbon_Field_Post_Picker\\": "core/"
+        }
+    }
+}
