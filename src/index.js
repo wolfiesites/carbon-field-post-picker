@@ -9,4 +9,4 @@ import { registerFieldType } from '@carbon-fields/core';
 import './style.scss';
 import Post_Picker_Field from './main';
 
-registerFieldType( 'post-picker', Post_Picker_Field );
+registerFieldType( 'post_picker', Post_Picker_Field );
