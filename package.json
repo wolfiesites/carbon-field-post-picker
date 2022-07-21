@@ -37,6 +37,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
+    "@duik/it": "^0.6.0",
+    "@duik/select": "^0.6.0",
+    "@wordpress/api-fetch": "^6.10.0",
     "@wordpress/compose": "^3.0.0",
     "@wordpress/data": "^4.0.1",
     "@wordpress/element": "^2.1.8",
@@ -45,6 +48,7 @@
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "react-select-fetch": "^0.4.0"
   }
 }

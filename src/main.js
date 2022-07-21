@@ -1,60 +1,76 @@
 /**
  * External dependencies.
  */
+import apiFetch from '@wordpress/api-fetch';
 import { Component } from '@wordpress/element';
 import { divide, findLastIndex } from 'lodash';
 import { Icon } from '@iconify/react';
 
-
 class Post_Picker_Field extends Component {
-	/**
-	 * Renders the component.
-	 *
-	 * @return {Object}
-	 */
+    constructor(props) {
+        super(props);
+        this.state = {
+            arr: ['one','two','trhee'],
+            items: ['one','two','trhee'],
+            item: "lol"
+        };
+    }
+    /**
+     * Renders the component.
+     *
+     * @return {Object}
+     */
 
-     handleChange = ( e ) => {
-		const { id, onChange } = this.props;
+    handleChange = (e) => {
+        const { id, onChange } = this.props;
 
-		onChange( id, e.target.value );
-	}
-    togglePassword(e) {
-        let x = e.target;
-        let parent = x.parentElement;
-        let input = parent.childNodes[0];
-
-        if (input.type === "password") {
-          input.type = "text";
-        } else {
-          input.type = "password";
-        }
+        onChange(id, e.target.value);
     }
 
-	render() {
-        const {
-			id,
-			name,
-			value,
-		} = this.props;
-        const { handleChange } = this;
-        const { togglePassword } = this;
+    fetchPosts = (e) => {
+        let items = [];
+        apiFetch({ path: '/wp-json/wp/v2/posts' }).then((posts) => {
+            posts.forEach(element => {
+                let item = {};
+                item.id = element.id || '';
+                item.title = element.title.rendered || '';
+                items.push(item.title);
+            });
+        });
+        return items;
+    }
+    renderOptions = (items) => {
+        let itemsHtml = items.map(function (item) {
+            return <option key="{id}" value={item} className="option">{item}</option>
+        })
 
-		return (
+        return itemsHtml;
+    }
+
+    render() {
+        const {
+            id,
+            name,
+            value,
+        } = this.props;
+        const { handleChange } = this;
+        const { fetchPosts } = this;
+
+        return (
             <>
-                <div className="input-wrapper d-flex nowrap align-items-center">
-			    <input 
-                    value={value}
-                    style={{width:"100%"}} 
-                    type="password"
-                    id={id}
-                    name={name}
-                    onChange={this.handleChange}
-                    />
-                    <Icon className="wolfie-icon" onClick={this.togglePassword} icon="fa-regular:eye-slash" />
+                <div className="input-wrapper d-flex nowrap align-items-center crb_field">
+                    <select name={name} id={id}>
+                        {this.renderOptions(this.state.arr)}
+                    </select>
                 </div>
             </>
-		);
-	}
+        );
+    }
+    // lifecycle: use to update props
+    componentDidMount() {
+        let posts = this.fetchPosts();
+        this.setState({ items: posts });
+    }
 }
 
 export default Post_Picker_Field;
